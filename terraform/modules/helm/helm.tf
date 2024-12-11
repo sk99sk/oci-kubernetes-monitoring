@@ -75,10 +75,10 @@ resource "helm_release" "oci-kubernetes-monitoring" {
   # TODO: Review
   # Run Helm Apply every time terraform apply job is executed
   # Check if this will pick up the latest helm chart as well
-  set {
-    name  = "HelmApplyOnEveryTerraformApply"
-    value = timestamp()
-  }
+  # set {
+  #   name  = "HelmApplyOnEveryTerraformApply"
+  #   value = timestamp()
+  # }
 
   count = var.install_helm_chart ? 1 : 0
 }

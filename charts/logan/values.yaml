@@ -725,8 +725,8 @@ k8sDiscovery:
    infra:
       # Enable Logs collection for OKE's OCI infra components - LB, OKE Cluster control plane, Subnet logs etc
       enable_service_log: false
-      # Lookup oke infra resources (LB, subnets etc) in all compartments of tenant
-      # when false, only resources in OKE's compartment are discovered
+      # Discovers OKE Node Pools in all compartments of tenant
+      # when false, Node Pools present in OKE's compartment are discovered
       probe_all_compartments: false
       # tenancy ocid - must be provided if probe_all_compartments is set as true
       tenancy_ocid:
