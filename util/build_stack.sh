@@ -100,6 +100,8 @@ if test -z "${release_name}"; then
     fi
 
     BRANCH=$(git symbolic-ref --short HEAD)
+    # replace / in branch names; required for zip step further
+    BRANCH=$(echo "$BRANCH" | sed 's/\//_/g')
     COMMIT_HASH_SHORT=$(git rev-parse --short HEAD)
     COMMIT_COUNT=$(git rev-list --count HEAD)
 
