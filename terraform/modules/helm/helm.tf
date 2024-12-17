@@ -17,7 +17,7 @@ locals {
   # freeformTags_as_String = "join(",", [for key, value in var.tags.freeformTags : "\"${key}\" = \"${value}\""])"
   # tags_as_string = "{${join(",", [for key, value in var.tags : "\"${key}\" = \"${value}\""])}}"
 
-  helm_inputs = {
+  helm_inputs_base = {
     # global
     "global.namespace"             = var.kubernetes_namespace
     "global.kubernetesClusterID"   = var.kubernetes_cluster_id
@@ -37,6 +37,11 @@ locals {
     "oci-onm-mgmt-agent.mgmtagent.installKeyFileContent" = var.mgmt_agent_install_key_content
     "oci-onm-mgmt-agent.deployMetricServer"              = var.opt_deploy_metric_server
   }
+
+  helm_input_domain      = var.oci_domain == null ? {} : { "oci-onm-logan.ociDomain" = var.oci_domain }
+  helm_input_la_endpoint = var.LOGAN_ENDPOINT == null ? {} : { "oci-onm-logan.ociLAEndpoint" = "${var.LOGAN_ENDPOINT}" }
+
+  helm_inputs = merge(local.helm_inputs_base, local.helm_input_domain, local.helm_input_la_endpoint)
 }
 
 # format tags; as required in helm input
@@ -58,14 +63,6 @@ resource "helm_release" "oci-kubernetes-monitoring" {
 
   dynamic "set" {
     for_each = local.helm_inputs
-    content {
-      name  = set.key
-      value = set.value
-    }
-  }
-
-  dynamic "set" {
-    for_each = var.oci_domain == null ? {} : { "oci-onm-logan.ociDomain" = var.oci_domain }
     content {
       name  = set.key
       value = set.value
@@ -95,14 +92,6 @@ data "helm_template" "oci-kubernetes-monitoring" {
 
   dynamic "set" {
     for_each = local.helm_inputs
-    content {
-      name  = set.key
-      value = set.value
-    }
-  }
-
-  dynamic "set" {
-    for_each = var.oci_domain == null ? {} : { "oci-onm-logan.ociDomain" = var.oci_domain }
     content {
       name  = set.key
       value = set.value
