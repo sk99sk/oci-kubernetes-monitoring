@@ -33,11 +33,12 @@ locals {
       "Allow dynamic-group ${local.dynamic_group_name} to use clusters in tenancy where target.cluster.id=${var.oke_cluster_ocid}",
       "Allow dynamic-group ${local.dynamic_group_name} to read cluster-node-pools in tenancy",
       # https://docs.oracle.com/en-us/iaas/Content/Identity/Reference/corepolicyreference.htm
+      # Note:
+      # Customers will need to create additional policies to support VCN and subnets in non-OKE compartments
       "Allow dynamic-group ${local.dynamic_group_name} to read vcns in ${local.oke_compartment_scope}",
-      "Allow dynamic-group ${local.dynamic_group_name} to use subnets in ${local.oke_compartment_scope}", # TODO check if subnet is sufficient virtual-network-family
+      "Allow dynamic-group ${local.dynamic_group_name} to use subnets in ${local.oke_compartment_scope}",
       # https://docs.oracle.com/en-us/iaas/Content/Identity/Reference/lbpolicyreference.htm
       "Allow dynamic-group ${local.dynamic_group_name} to use load-balancers in ${local.oke_compartment_scope}"
-      # Possible issue - Subnets are not in same compartment as OKE
     ],
     # Note:
     # In Order to read data from an existing log-group (which can we part of any compartment),

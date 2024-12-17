@@ -44,12 +44,6 @@ locals {
   helm_inputs = merge(local.helm_inputs_base, local.helm_input_domain, local.helm_input_la_endpoint)
 }
 
-# format tags; as required in helm input
-# module "format_tags" {
-#   source = "./format_tags"
-#   tags   = var.tags
-# }
-
 # Create helm release
 resource "helm_release" "oci-kubernetes-monitoring" {
   name              = "oci-kubernetes-monitoring"
