@@ -724,7 +724,7 @@ k8sDiscovery:
       # backoffLimit: 1
    infra:
       # Enable Logs collection for OKE's OCI infra components - LB, OKE Cluster control plane, Subnet logs etc
-      # Not supported for non OKE clusters
+      # Not supported for Non OKE clusters
       enable_service_log: false
       # Discovers OKE Node Pools in all compartments of tenant
       # when false, Node Pools present in OKE's compartment are discovered
