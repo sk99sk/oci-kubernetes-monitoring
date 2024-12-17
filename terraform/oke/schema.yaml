@@ -254,7 +254,7 @@ variables:
     type: boolean
     title: Enable service logs collection
     description: Clear this check box if do not want to collect logs from OKE infra components
-    default: true
+    default: false
     visible:
       and:
         - ${show_advanced_options}

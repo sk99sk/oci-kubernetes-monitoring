@@ -31,16 +31,18 @@ locals {
       "Allow dynamic-group ${local.dynamic_group_name} to inspect compartments in tenancy",
       # https://docs.oracle.com/en-us/iaas/Content/Identity/Reference/contengpolicyreference.htm
       "Allow dynamic-group ${local.dynamic_group_name} to use clusters in tenancy where target.cluster.id=${var.oke_cluster_ocid}",
-      "Allow dynamic-group ${local.dynamic_group_name} to read cluster-node-pools in tenancy", # TODO: where target.cluster.id=${var.oke_cluster_ocid} ==> when service logs are not enabled
+      "Allow dynamic-group ${local.dynamic_group_name} to read cluster-node-pools in tenancy",
       # https://docs.oracle.com/en-us/iaas/Content/Identity/Reference/corepolicyreference.htm
-      "Allow dynamic-group ${local.dynamic_group_name} to use virtual-network-family in ${local.oke_compartment_scope}", # TODO check if subnet is sufficient
+      "Allow dynamic-group ${local.dynamic_group_name} to read vcns in ${local.oke_compartment_scope}",
+      "Allow dynamic-group ${local.dynamic_group_name} to use subnets in ${local.oke_compartment_scope}", # TODO check if subnet is sufficient virtual-network-family
       # https://docs.oracle.com/en-us/iaas/Content/Identity/Reference/lbpolicyreference.htm
-      "Allow dynamic-group ${local.dynamic_group_name} to use load-balancers in ${local.oke_compartment_scope}" # may be use in LB; if use works then do we need use in log-content
+      "Allow dynamic-group ${local.dynamic_group_name} to use load-balancers in ${local.oke_compartment_scope}"
       # Possible issue - Subnets are not in same compartment as OKE
     ],
     # Note:
-    # In Order to read data from an existing log-group, we must allow read access in both ONM and OKE compartments
-    # Compartment of Logging LogGroup is not know at the time of policy creation via stack
+    # In Order to read data from an existing log-group (which can we part of any compartment),
+    # We must allow read access in at least, both ONM and OKE compartments
+    # Compartment of Logging LogGroup is not known at the time of policy creation via stack
     # We assume that Logging Log Groups are only created in either OKE or ONM compartments
     service_discovery_stmt = var.create_service_discovery_policies ? distinct([
       "Allow dynamic-group ${local.dynamic_group_name} to manage log-groups in ${local.onm_compartment_scope}",
@@ -104,4 +106,3 @@ module "tag_namespaces" {
   source      = "./parse_namespaces"
   definedTags = var.tags.definedTags
 }
-
