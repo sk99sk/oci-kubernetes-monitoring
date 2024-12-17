@@ -123,6 +123,12 @@ variable "tags" {
 ##  Others
 ####
 
+variable "LOGAN_ENDPOINT" {
+  description = "Logging Analytics Endpoint."
+  type        = string
+  default     = null
+}
+
 # Save data resources in local_file for debug purposes
 variable "debug" {
   type    = bool

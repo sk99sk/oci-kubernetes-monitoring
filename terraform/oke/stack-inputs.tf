@@ -253,7 +253,13 @@ variable "toggle_use_local_helm_chart" {
 # Ref - https://confluence.oci.oraclecorp.com/display/TERSI/FAQs#FAQs-Q.HowdoItestonPre-ProdenvironmentORHowdoImakeTerraformproviderpointtocustomControlPlane(CP)endpoint
 
 variable "CLIENT_HOST_OVERRIDES" {
-  description = "The client host overrides for the terraform provider with Object Storage endpoint overridden."
+  description = "The client host overrides for the terraform provider."
+  type        = string
+  default     = null
+}
+
+variable "LOGAN_ENDPOINT" {
+  description = "Logging Analytics Endpoint."
   type        = string
   default     = null
 }

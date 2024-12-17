@@ -130,6 +130,7 @@ module "helm_release" {
   fluentd_base_dir_path          = var.fluentd_base_dir_path
   oci_domain                     = var.oci_domain
   enable_service_log             = var.enable_service_log
+  LOGAN_ENDPOINT                 = var.LOGAN_ENDPOINT
   tags                           = var.tags
 }
 

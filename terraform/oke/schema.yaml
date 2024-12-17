@@ -33,10 +33,15 @@ variableGroups:
       - ${toggle_use_local_helm_chart}
     visible: false
 
+  - title: Dev configuration [ DO NOT USE IN PRODUCTION ]
+    variables:
+      - ${CLIENT_HOST_OVERRIDES}
+      - ${LOGAN_ENDPOINT}
+    visible: false
+
   # These variables are utilized for QA validation and testing. They are not meant to be used in production.
   - title: "hidden dev inputs"
     variables:
-      - ${CLIENT_HOST_OVERRIDES}
       - ${debug}
     visible: false    
 
@@ -75,6 +80,22 @@ variableGroups:
 
 
 variables:
+
+  #### [Section]
+  ##  Dev configuration [ DO NOT USE IN PRODUCTION ]
+  ####
+
+  # Override terraform provider endpoint
+  CLIENT_HOST_OVERRIDES:
+      type: string
+      title: CLIENT_HOST_OVERRIDES [ Do not use in Production ]
+      # default: add default values here for env override
+
+  # Override logan endpoint for discovery and fluentd collection
+  LOGAN_ENDPOINT:
+      type: string
+      title: Logging Analytics Endpoint. [ Do not use in Production ]
+      # default: add default values here for env override
 
   #### [Section]
   ##  Select an OKE cluster deployed in this region to start monitoring
