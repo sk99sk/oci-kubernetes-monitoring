@@ -19,7 +19,6 @@ ENV FLUENTD_DISABLE_BUNDLER_INJECTION 1
 
 COPY Gemfile* /fluentd/
 COPY tcpconnect.* /fluentd/
-COPY tcp-monitor /usr/local/bin/
 
 # Install ruby, ruby-libs along with rubygems and bundler.
 RUN microdnf -y module enable ruby:3.3 \
@@ -86,7 +85,6 @@ COPY --from=builder /usr/lib/libjemalloc.so.2 /usr/lib/libjemalloc.so.2
 COPY --from=builder /usr/bin/tcpconnect /usr/bin/tcpconnect
 COPY --from=builder /usr/local/bin /usr/local/bin
 
-RUN chmod +x /usr/local/bin/tcp-monitor
 RUN mkdir -p /fluentd/etc /fluentd/plugins \
  && touch /fluentd/etc/disable.conf
 
