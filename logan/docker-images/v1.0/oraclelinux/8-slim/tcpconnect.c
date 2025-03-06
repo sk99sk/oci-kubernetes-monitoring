@@ -245,7 +245,7 @@ static void print_count_ipv4(int map_fd, time_t start)
 		dst.s_addr = keys[i].daddr;
 		
 		if (env.ec) {
-			printf("%lu %lu %s %s %d %llu %s",
+			printf("v1 %lu %lu %s %s %d %llu %s",
 							    (unsigned long)start,
                                (unsigned long)time(NULL),
 		               inet_ntop(AF_INET, &src, s, sizeof(s)), 
@@ -291,7 +291,7 @@ static void print_count_ipv6(int map_fd, time_t start)
 		memcpy(dst.s6_addr, keys[i].daddr, sizeof(src.s6_addr));
 		
 		if (env.ec) {
-                        printf("%lu %lu %s %s %d %llu %s", 
+                        printf("v1 %lu %lu %s %s %d %llu %s", 
 					(unsigned long)start,
 			       (unsigned long)time(NULL),
                                inet_ntop(AF_INET6, &src, s, sizeof(s)), 
