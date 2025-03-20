@@ -275,7 +275,7 @@ data:
        </rule>
        <rule>
        key message
-       pattern  /^((?!kubelet).)*$/
+       pattern  /^(?!(?:(?:\d+\s+)?<([^>]*)>(?:\d+\s+)?)?\S+\s+\d{1,2}\s+\d{1,2}:\d{1,2}:\d{1,2}\s+\S+\s+kubelet).*/
        tag oci{{- ternary (print "." $currWorker) "" $multiWorkersEnabled }}.oke.syslog.syslog.*
        </rule>
     </match>
